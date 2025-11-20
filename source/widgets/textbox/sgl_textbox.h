@@ -49,8 +49,8 @@ typedef struct sgl_textbox {
     int32_t          y_offset;
     sgl_draw_rect_t  scroll_bg;
     sgl_draw_rect_t  scroll_fg;
-    int32_t          text_height: 31;
-    int32_t          scroll_enable: 1;
+    uint32_t         text_height: 31;
+    uint32_t         scroll_enable: 1;
 }sgl_textbox_t;
 
 
