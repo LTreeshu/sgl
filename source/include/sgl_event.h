@@ -172,10 +172,10 @@ void sgl_event_task(void);
  *            bsp_touch_read_pos(&pos_x, &pos_y);
  *            button_status = bsp_touch_read_status();
  *            
- *            sgl_event_read_pos_helper(pos_x, pos_y, button_status);
+ *            sgl_event_read_pos_polling(pos_x, pos_y, button_status);
  *        }
  */
-void sgl_event_read_pos_helper(int16_t x, int16_t y, bool flag);
+void sgl_event_read_pos_polling(int16_t x, int16_t y, bool flag);
 
 
 #ifdef __cplusplus
