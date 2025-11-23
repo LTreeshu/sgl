@@ -219,39 +219,6 @@ static struct sgl_obj* click_detect_object(sgl_event_pos_t *pos)
 
 
 /**
- * @brief check whether the position is motion on the object
- * @param pos The position to be motion
- * @return The object that is motion on, NULL if no object is motion
- */
-static struct sgl_obj* motion_detect_object(sgl_event_pos_t *pos)
-{
-    struct sgl_obj *stack[SGL_OBJ_DEPTH_MAX], *obj = NULL;
-    int top = 0;
-    stack[top++] = sgl_screen_act();
-
-    while (top > 0) {
-        SGL_ASSERT(top < SGL_OBJ_DEPTH_MAX);
-		obj = stack[--top];
-
-        if (sgl_obj_has_sibling(obj)) {
-            stack[top++] = obj->sibling;
-        }
-
-        if (pos_is_focus_on_obj(pos, &obj->coords, obj->radius)) {
-            if (sgl_obj_is_movable(obj)) {
-                return obj;
-            }
-            else if (sgl_obj_has_child(obj)) {
-                stack[top++] = obj->child;
-            }
-        }
-    }
-
-    return NULL;
-}
-
-
-/**
  * @brief Handle the position event
  * @param pos The position to be handled
  * @param type The type of the event
@@ -331,7 +298,7 @@ void sgl_event_task(void)
                 obj = click_detect_object(&evt.pos);
             }
             else {
-                obj = motion_detect_object(&evt.pos);
+                obj = event_lost;
                 sgl_get_move_info(&evt);
             }
         }

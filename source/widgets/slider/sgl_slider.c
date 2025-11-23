@@ -109,7 +109,7 @@ sgl_obj_t* sgl_slider_create(sgl_obj_t* parent)
     slider->body.border = SGL_THEME_BORDER_WIDTH;
     slider->body.border_color = SGL_THEME_BORDER_COLOR;
 
-    slider->color = SGL_THEME_BG_COLOR;
+    slider->color = SGL_THEME_COLOR;
     slider->alpha = SGL_THEME_ALPHA;
 
     return obj;
