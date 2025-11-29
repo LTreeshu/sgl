@@ -244,22 +244,26 @@ typedef struct sgl_surf {
 * @brief This structure defines an image, with a bitmap pointing to the
 *        bitmap of the image, while specifying the width and height of the image
 *
-* @bitmap: point to image bitmap
 * @width: pixmap width
 * @height: pixmap height
 * @format: bitmap format 0: no compression, 1:
+* @bitmap: point to image bitmap
 * @read: read pixel map from external storage
 * @data: user private data for @read
 */
 typedef struct sgl_pixmap {
-    const uint8_t *bitmap;
-    uint32_t       width : 12;
-    uint32_t       height : 12;
-    uint32_t       format : 8;
+    uint32_t width : 12;
+    uint32_t height : 12;
+    uint32_t format : 8;
 
-#if (CONFIG_SGL_EXTERNAL_PIXMAP)
-    void          (*read)(void *buff, uint32_t pos, size_t size, void *data);
-    void          *data;
+#if (CONFIG_SGL_EXTERNAL_PIXMAP == 0)
+    const uint8_t *bitmap;
+#else
+    void (*read)(void *buff, uint32_t pos, size_t size, void *data);
+    union {
+        const uint8_t *bitmap;
+        void          *data;
+    };
 #endif
 } sgl_pixmap_t;
 
